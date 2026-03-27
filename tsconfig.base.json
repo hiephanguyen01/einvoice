@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@common/configraruration/*": ["libs/configraruration/src/lib/*"],
-      "@common/constants/*": ["libs/constants/src/lib/*"]
+      "@common/constants/*": ["libs/constants/src/lib/*"],
+      "@common/middlewares/*": ["libs/middlewares/src/lib/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -17,6 +17,13 @@
   "nxCloudId": "68dbf863ddbec2466b4f7d35",
   "plugins": [
     {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "typecheckTargetName": "typecheck"
+      },
+      "exclude": ["libs/middlewares/*"]
+    },
+    {
       "plugin": "@nx/webpack/plugin",
       "options": {
         "buildTargetName": "build",
@@ -39,6 +46,19 @@
         "targetName": "test"
       },
       "exclude": ["apps/invoice-e2e/**/*"]
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": ["libs/middlewares/*"],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "build",
+          "configName": "tsconfig.lib.json"
+        }
+      }
     }
   ],
   "targetDefaults": {
