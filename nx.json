@@ -21,7 +21,7 @@
       "options": {
         "typecheckTargetName": "typecheck"
       },
-      "exclude": ["libs/middlewares/*"]
+      "exclude": ["libs/middlewares/*", "libs/utils/*"]
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -49,7 +49,7 @@
     },
     {
       "plugin": "@nx/js/typescript",
-      "include": ["libs/middlewares/*"],
+      "include": ["libs/middlewares/*", "libs/utils/*", "libs/constants/*"],
       "options": {
         "typecheck": {
           "targetName": "typecheck"

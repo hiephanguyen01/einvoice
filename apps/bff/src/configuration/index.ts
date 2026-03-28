@@ -1,5 +1,4 @@
-import { AppConfiguration } from '@common/configraruration/app.config';
-import { BaseConfiguration } from '@common/configraruration/base.config';
+import { AppConfiguration, BaseConfiguration } from '@common/configraruration';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 class Configuration extends BaseConfiguration {

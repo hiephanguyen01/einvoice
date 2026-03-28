@@ -1,4 +1,4 @@
-import { PORT } from '@common/constants/common.constant';
+import { PORT } from '@common/constants';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

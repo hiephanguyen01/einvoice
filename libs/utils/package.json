@@ -1,11 +1,9 @@
 {
   "dependencies": {
-    "@nestjs/common": "^11.1.17",
-    "express": "5.2.1",
     "tslib": "^2.3.0"
   },
   "main": "./src/index.js",
-  "name": "@common/middlewares",
+  "name": "@common/utils",
   "private": true,
   "type": "commonjs",
   "types": "./src/index.d.ts",
