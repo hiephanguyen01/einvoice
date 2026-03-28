@@ -1,3 +1,4 @@
+import { ResponseDto } from '@common/interfaces';
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
@@ -7,6 +8,7 @@ export class AppController {
 
   @Get()
   getData() {
-    return this.appService.getData();
+    const result = this.appService.getData();
+    return new ResponseDto({ data: result });
   }
 }

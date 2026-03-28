@@ -1,6 +1,6 @@
 {
   "$schema": "./../../node_modules/nx/schemas/project-schema.json",
-  "name": "@common/configuration",
+  "name": "configuration",
   "projectType": "library",
   "sourceRoot": "libs/configuration/src",
   "tags": [],

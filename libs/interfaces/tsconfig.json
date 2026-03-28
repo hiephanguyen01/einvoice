@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
@@ -9,7 +10,6 @@
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true
   },
-  "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
   "references": [
