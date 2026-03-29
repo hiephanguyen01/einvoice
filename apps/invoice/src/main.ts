@@ -10,11 +10,12 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  console.log('🚀 ~ bootstrap ~ AppModule:', AppModule.CONFIGURATION.TCP_SERV.TCP_INVOICE_SERVICE.options.port);
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
-      port: 3300,
-      host: 'localhost',
+      port: AppModule.CONFIGURATION.TCP_SERV.TCP_INVOICE_SERVICE.options.port,
+      host: AppModule.CONFIGURATION.TCP_SERV.TCP_INVOICE_SERVICE.options.host,
     },
   });
   const globalPrefix = 'api';
