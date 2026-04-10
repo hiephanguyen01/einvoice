@@ -11,7 +11,6 @@ export class ExceptionInterceptor {
     const ctx = context.switchToHttp();
     const request: Request & { [MetaDataKey.PROCESS_ID]: string } = ctx.getRequest();
     const processId = request[MetaDataKey.PROCESS_ID];
-    console.log("🚀 ~ ExceptionInterceptor ~ intercept ~ processId:", processId)
     return next.handle().pipe(
       map((data: ResponseDto<unknown>) => {
         data.processId = processId;

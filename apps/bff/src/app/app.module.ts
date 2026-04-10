@@ -6,17 +6,15 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ClientsModule } from '@nestjs/microservices';
 import { CONFIGURATION, IConfiguration } from './../configuration/index';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { InvoiceModule } from './modules/invoice/invoice.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [() => CONFIGURATION] }),
-    ClientsModule.registerAsync([TcpProvider(TCP_SERVICES.INVOICE_SERVICE)]),
+    InvoiceModule
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: ExceptionInterceptor,
