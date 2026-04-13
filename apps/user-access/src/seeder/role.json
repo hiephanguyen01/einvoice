@@ -1,0 +1,50 @@
+{
+  "collection": "roles",
+  "data": [
+    {
+      "_id": {
+        "$oid": "64a1f8c9e4b0c2a1b2c3d4e"
+      },
+      "description": "System administrator with full access",
+      "name": "administrator",
+      "permissions": [
+        "invoice.create",
+        "invoice.get_by_id",
+        "invoice.get_all",
+        "invoice.update",
+        "invoice.delete",
+        "invoice.send",
+        "user.create",
+        "user.get_by_id",
+        "user.get_all",
+        "user.update",
+        "user.delete",
+        "role.create",
+        "role.get_by_id",
+        "role.get_all",
+        "role.update",
+        "role.delete",
+        "product.create",
+        "product.get_by_id",
+        "product.get_all",
+        "product.update",
+        "product.delete"
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "64a1f8c9e4b0c2a1b2c3d4f"
+      },
+      "description": "accountant role with user permissions",
+      "name": "user",
+      "permissions": [
+        "invoice.get_by_id",
+        "invoice.get_all",
+        "user.get_by_id",
+        "role.get_by_id",
+        "product.get_by_id",
+        "product.get_all"
+      ]
+    }
+  ]
+}

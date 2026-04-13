@@ -1,57 +1,77 @@
 {
-  "name": "user-access",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/user-access/src",
+  "name": "user-access",
   "projectType": "application",
+  "sourceRoot": "apps/user-access/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "webpack-cli build",
-        "args": ["--node-env=production"],
-        "cwd": "apps/user-access"
-      },
       "configurations": {
         "development": {
-          "args": ["--node-env=development"]
+          "args": [
+            "--node-env=development"
+          ]
         }
-      }
-    },
-    "prune-lockfile": {
-      "dependsOn": ["build"],
-      "cache": true,
-      "executor": "@nx/js:prune-lockfile",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/user-access/package.json",
-        "{workspaceRoot}/dist/apps/user-access/pnpm-lock.yaml"
-      ],
+      },
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "build"
+        "args": [
+          "--node-env=production"
+        ],
+        "command": "webpack-cli build",
+        "cwd": "apps/user-access"
       }
     },
     "copy-workspace-modules": {
-      "dependsOn": ["build"],
       "cache": true,
-      "outputs": ["{workspaceRoot}/dist/apps/user-access/workspace_modules"],
+      "dependsOn": [
+        "build"
+      ],
       "executor": "@nx/js:copy-workspace-modules",
       "options": {
         "buildTarget": "build"
-      }
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/apps/user-access/workspace_modules"
+      ]
     },
     "prune": {
-      "dependsOn": ["prune-lockfile", "copy-workspace-modules"],
+      "dependsOn": [
+        "prune-lockfile",
+        "copy-workspace-modules"
+      ],
       "executor": "nx:noop"
     },
-    "serve": {
-      "continuous": true,
-      "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+    "prune-lockfile": {
+      "cache": true,
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@nx/js:prune-lockfile",
       "options": {
-        "buildTarget": "user-access:build",
-        "runBuildTargetDependencies": false
+        "buildTarget": "build"
       },
+      "outputs": [
+        "{workspaceRoot}/dist/apps/user-access/package.json",
+        "{workspaceRoot}/dist/apps/user-access/pnpm-lock.yaml"
+      ]
+    },
+    "seed": {
+      "configurations": {
+        "migrate": {
+          "command": "node tools/seed.js apps/user-access/src/seeder migrate"
+        },
+        "prune": {
+          "command": "node tools/seed.js apps/user-access/src/seeder prune"
+        }
+      },
+      "defaultConfiguration": "migrate",
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/seed.js apps/user-access/src/seeder migrate"
+      }
+    },
+    "serve": {
       "configurations": {
         "development": {
           "buildTarget": "user-access:build:development"
@@ -59,6 +79,16 @@
         "production": {
           "buildTarget": "user-access:build:production"
         }
+      },
+      "continuous": true,
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "user-access:build",
+        "runBuildTargetDependencies": false
       }
     },
     "test": {

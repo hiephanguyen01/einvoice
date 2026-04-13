@@ -53,6 +53,9 @@ dependencies:
   class-validator:
     specifier: ^0.15.1
     version: 0.15.1
+  mongodb:
+    specifier: ^7.1.1
+    version: 7.1.1
   mongoose:
     specifier: ^9.3.3
     version: 9.3.3
@@ -67,7 +70,7 @@ dependencies:
     version: 7.8.2
   typeorm:
     specifier: ^0.3.28
-    version: 0.3.28(pg@8.20.0)(ts-node@10.9.1)
+    version: 0.3.28(mongodb@7.1.1)(pg@8.20.0)(ts-node@10.9.1)
   uuid:
     specifier: ^13.0.0
     version: 13.0.0
@@ -2449,7 +2452,7 @@ packages:
       '@nestjs/core': 11.1.17(@nestjs/common@11.1.17)(@nestjs/microservices@11.1.17)(@nestjs/platform-express@11.1.17)(reflect-metadata@0.1.14)(rxjs@7.8.2)
       reflect-metadata: 0.1.14
       rxjs: 7.8.2
-      typeorm: 0.3.28(pg@8.20.0)(ts-node@10.9.1)
+      typeorm: 0.3.28(mongodb@7.1.1)(pg@8.20.0)(ts-node@10.9.1)
     dev: false
 
   /@noble/hashes@1.4.0:
@@ -10112,7 +10115,7 @@ packages:
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
-  /typeorm@0.3.28(pg@8.20.0)(ts-node@10.9.1):
+  /typeorm@0.3.28(mongodb@7.1.1)(pg@8.20.0)(ts-node@10.9.1):
     resolution: {integrity: sha512-6GH7wXhtfq2D33ZuRXYwIsl/qM5685WZcODZb7noOOcRMteM9KF2x2ap3H0EBjnSV0VO4gNAfJT5Ukp0PkOlvg==}
     engines: {node: '>=16.13.0'}
     hasBin: true
@@ -10176,6 +10179,7 @@ packages:
       dedent: 1.7.2
       dotenv: 16.6.1
       glob: 10.5.0
+      mongodb: 7.1.1
       pg: 8.20.0
       reflect-metadata: 0.2.2
       sha.js: 2.4.12
