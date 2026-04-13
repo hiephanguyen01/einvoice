@@ -1,25 +1,35 @@
-import { Invoice, InvoiceModel, InvoiceModelName } from '@common/schemas';
+import { Product } from '@common/entities';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductRepository {
-  constructor(@InjectModel(InvoiceModelName) private readonly invoiceModel: InvoiceModel) {}
+  constructor(@InjectRepository(Product) private readonly productRepository: Repository<Product>) {}
 
-  create(data: Partial<Invoice>) {
-    return this.invoiceModel.create(data);
-  }
-  getById(id: string) {
-    return this.invoiceModel.findById(id).exec();
+  async create(productData: Partial<Product>): Promise<Product> {
+    const product = this.productRepository.create(productData);
+    return await this.productRepository.save(product);
   }
 
-  updateById(id: string, data: Partial<Invoice>) {
-    return this.invoiceModel.findByIdAndUpdate(id, data, { new: true }).exec();
+  async findAll(): Promise<Product[]> {
+    return await this.productRepository.find();
   }
 
-  deleteById(id: string) {
-    return this.invoiceModel.findByIdAndDelete(id).exec();
+  async findById(id: string): Promise<Product | null> {
+    return (await this.productRepository.findOne({ where: { id } })) || null;
   }
 
+  async update(id: string, updateData: Partial<Product>): Promise<Product | null> {
+    await this.productRepository.update(id, updateData);
+    return this.findById(id);
+  }
 
+  async delete(id: string): Promise<void> {
+    await this.productRepository.delete(id);
+  }
+
+  async exists(sku: string, name: string): Promise<boolean> {
+    return this.productRepository.exist({ where: { sku, name } });
+  }
 }

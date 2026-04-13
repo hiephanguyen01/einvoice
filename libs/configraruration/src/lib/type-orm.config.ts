@@ -51,6 +51,6 @@ export const TypeOrmProvider = TypeOrmModule.forRootAsync({
       database: config.get<string>('TYPEORM_CONFIG.DATABASE'),
       entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
       synchronize: true,
-      autoLoadingEntities: true,
+      autoLoadEntities: true,
     } as TypeOrmModuleOptions),
 });

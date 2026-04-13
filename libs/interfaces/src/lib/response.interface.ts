@@ -17,7 +17,7 @@ export class ResponseDto<T> {
   @ApiProperty({ type: Number, required: false })
   duration?: number;
 
-  constructor(data: Partial<ResponseDto<T>>) {
+  constructor(data?: Partial<ResponseDto<T>>) {
     Object.assign(this, data);
   }
 }

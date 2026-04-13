@@ -1,7 +1,7 @@
 import { TCP_SERVICES, TcpProvider } from '@common/configraruration';
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
-import { InvoiceController } from '../controllers/invoice.controller';
+import { InvoiceController } from './controllers/invoice.controller';
 
 @Module({
   imports: [ClientsModule.registerAsync([TcpProvider(TCP_SERVICES.INVOICE_SERVICE)])],
