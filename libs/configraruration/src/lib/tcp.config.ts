@@ -3,16 +3,21 @@ import { ClientsProviderAsyncOptions, TcpClientOptions, Transport } from '@nestj
 import { IsNotEmpty, IsObject } from 'class-validator';
 export enum TCP_SERVICES {
   INVOICE_SERVICE = 'TCP_INVOICE_SERVICE',
+  PRODUCT_SERVICE = 'TCP_PRODUCT_SERVICE',
 }
 export class TcpConfiguration {
   @IsNotEmpty()
   @IsObject()
   TCP_INVOICE_SERVICE: TcpClientOptions;
 
+  @IsNotEmpty()
+  @IsObject()
+  TCP_PRODUCT_SERVICE: TcpClientOptions;
+
   constructor() {
     Object.entries(TCP_SERVICES).forEach(([key, service]) => {
-      const host = process.env[`${key}_HOST`] || 'localhost';
-      const port = Number(process.env[`${key}_PORT`]) || 3000;
+      const host = process.env[`${key}_HOST`] || process.env[`${service}_HOST`] || 'localhost';
+      const port = Number(process.env[`${key}_PORT`] || process.env[`${service}_PORT`]) || 3000;
 
       this[service] = TcpConfiguration.setValue(port, host);
     });
