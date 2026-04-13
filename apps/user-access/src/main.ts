@@ -1,0 +1,27 @@
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { Transport } from '@nestjs/microservices';
+import { AppModule } from './app/app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const tcpUserAccessOptions = AppModule.CONFIGURATION.TCP_SERV.TCP_USER_ACCESS_SERVICE.options || {};
+  const tcpPort = Number(tcpUserAccessOptions.port) || 3404;
+  const tcpHost = tcpUserAccessOptions.host || 'localhost';
+  console.log('🚀 ~ bootstrap ~ AppModule:', tcpPort);
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      port: tcpPort,
+      host: tcpHost,
+    },
+  });
+  const globalPrefix = 'api';
+  app.setGlobalPrefix(globalPrefix);
+  const port = process.env.USER_ACCESS_SERVICE_PORT || 3003;
+  await app.startAllMicroservices();
+  await app.listen(port);
+  Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
+}
+
+bootstrap();
