@@ -6,4 +6,6 @@ export * from './lib/response.interface';
 export * from './lib/tcp/invoice';
 export * from './lib/gateway/product';
 export * from './lib/tcp/product';
+export * from './lib/gateway/user';
+export * from './lib/tcp/user';
 

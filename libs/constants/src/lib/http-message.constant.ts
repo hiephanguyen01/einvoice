@@ -6,4 +6,5 @@ export enum HttpMessage {
   NOT_FOUND = 'Not Found',
   INTERNAL_SERVER_ERROR = 'Internal Server Error',
   AUTHENTICATION_FAILED = 'Authentication Failed',
+  CREATED = 'Created',
 }
