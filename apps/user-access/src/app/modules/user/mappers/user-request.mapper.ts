@@ -1,9 +1,10 @@
-import { CreateUserRequestDto } from '@common/interfaces';
+import { CreateUserTcpRequest } from '@common/interfaces';
 import { Types } from 'mongoose';
 
-export const createUserRequestMapping = (data: CreateUserRequestDto) => {
+export const createUserRequestMapping = (data: CreateUserTcpRequest, userId: string) => {
   return {
     ...data,
-    roles: data.roles.map((role) => new Types.ObjectId(role)),
+    roles: data.roles?.map((roleId) => new Types.ObjectId(roleId)),
+    userId,
   };
 };

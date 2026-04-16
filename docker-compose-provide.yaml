@@ -50,3 +50,18 @@ services:
       - einvoice-nw
     volumes:
       - ./docker/docker_data/pgadmin_data:/var/lib/pgadmin
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-server
+    restart: unless-stopped
+    command: ['start-dev']
+    ports:
+      - '8180:8080'
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    networks:
+      - einvoice-nw
+    volumes:
+      - ./docker/docker_data/keycloak_data:/opt/keycloak/data

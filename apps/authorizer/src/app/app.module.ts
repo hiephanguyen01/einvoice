@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CONFIGURATION, IConfiguration } from '../configuration';
-import { RoleModule } from './modules/role/role.module';
-import { UserModule } from './modules/user/user.module';
+import { KeycloakModule } from './modules/keycloadk/keycloak.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true, load: [() => CONFIGURATION] }), RoleModule, UserModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true, load: [() => CONFIGURATION] }), KeycloakModule],
 })
 export class AppModule {
   static CONFIGURATION: IConfiguration = CONFIGURATION;

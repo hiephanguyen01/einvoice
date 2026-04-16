@@ -18,9 +18,10 @@ export class ExceptionInterceptor {
         return data;
       }),
       catchError((error) => {
+        console.log("🚀 ~ ExceptionInterceptor ~ intercept ~ error:", error)
         this.logger.error({ error });
         const message = error.message || error.response?.message || HttpMessage.INTERNAL_SERVER_ERROR;
-        const statusCode = error.status || error.response?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
+        const statusCode = error.status|| error.code || error.statusCode || error.response?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
         throw new HttpException(new ResponseDto({ message, statusCode, processId }), statusCode);
       }),
     );

@@ -7,4 +7,4 @@ export class Request<T> {
   }
 }
 
-export type RequestType<T> = Request<T> | T;
+export type RequestType<T> = Request<T>;

@@ -21,8 +21,13 @@ enum USER {
   UPDATE_BY_ID = 'user.update-by-id',
 }
 
+enum KEYCLOAK {
+  CREATE_USER = 'keycloak.create-user',
+}
+
 export const TCP_REQUEST_MESSAGE = {
   INVOICE,
   PRODUCT,
   USER,
+  KEYCLOAK,
 };
