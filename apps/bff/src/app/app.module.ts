@@ -1,3 +1,4 @@
+import { RedisProvider } from '@common/configraruration';
 import { TCP_SERVICES, TcpProvider } from '@common/configraruration';
 import { PermissionGuard, UserGuard } from '@common/guards';
 import { ExceptionInterceptor } from '@common/interceptors';
@@ -20,6 +21,7 @@ import { UserModule } from './modules/user/user.module';
     UserModule,
     AuthorizerModule,
     ClientsModule.registerAsync([TcpProvider(TCP_SERVICES.AUTHORIZE_SERVICE)]),
+    RedisProvider,
   ],
   controllers: [],
   providers: [

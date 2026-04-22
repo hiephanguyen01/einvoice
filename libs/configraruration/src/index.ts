@@ -6,3 +6,4 @@ export * from './lib/tcp.config';
 export * from './lib/tcpLogging.config';
 export * from './lib/type-orm.config';
 export * from './lib/keycloak.config';
+export * from './lib/redis.config';

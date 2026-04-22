@@ -16,4 +16,10 @@ export class InvoiceController {
     const result = await this.invoiceService.create(params);
     return Response.success<InvoiceTcpResponse>(result);
   }
+
+  @MessagePattern(TCP_REQUEST_MESSAGE.INVOICE.GET_BY_ID)
+  async getById(@RequestParams() id: string): Promise<Response<InvoiceTcpResponse>> {
+    const result = await this.invoiceService.getById(id);
+    return Response.success<InvoiceTcpResponse>(result);
+  }
 }
