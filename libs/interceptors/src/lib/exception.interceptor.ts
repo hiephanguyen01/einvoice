@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class ExceptionInterceptor {
   private readonly logger = new Logger(ExceptionInterceptor.name);
 
-  intercept(context: ExecutionContext, next:CallHandler): Observable<any>| Promise<Observable<any>> {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Promise<Observable<any>> {
     const ctx = context.switchToHttp();
     const request: Request & { [MetaDataKey.PROCESS_ID]: string } = ctx.getRequest();
     const processId = request[MetaDataKey.PROCESS_ID];
@@ -18,10 +18,16 @@ export class ExceptionInterceptor {
         return data;
       }),
       catchError((error) => {
-        console.log("🚀 ~ ExceptionInterceptor ~ intercept ~ error:", error)
+        console.log('🚀 ~ ExceptionInterceptor ~ intercept ~ error:', error);
         this.logger.error({ error });
-        const message = error.message || error.response?.message || HttpMessage.INTERNAL_SERVER_ERROR;
-        const statusCode = error.status|| error.code || error.statusCode || error.response?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
+        const message =
+          error.response?.message || error.response?.message[0] || error.message || HttpMessage.INTERNAL_SERVER_ERROR;
+        const statusCode =
+          error.status ||
+          error.code ||
+          error.statusCode ||
+          error.response?.statusCode ||
+          HttpStatus.INTERNAL_SERVER_ERROR;
         throw new HttpException(new ResponseDto({ message, statusCode, processId }), statusCode);
       }),
     );
