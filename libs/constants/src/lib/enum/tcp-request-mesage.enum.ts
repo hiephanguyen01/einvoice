@@ -17,6 +17,7 @@ enum USER {
   CREATE = 'user.create',
   GET_ALL = 'user.get-all',
   GET_BY_ID = 'user.get-by-id',
+  GET_BY_USERID = 'user.get-by-userid',
   GET_BY_EMAIL = 'user.get-by-email',
   UPDATE_BY_ID = 'user.update-by-id',
 }

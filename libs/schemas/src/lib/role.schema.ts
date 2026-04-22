@@ -11,7 +11,7 @@ export class Role extends BaseSchema {
   description: string;
 
   @Prop({ type: [String], enum: PERMISSION, default: [] })
-  permissions: string[];
+  permissions: PERMISSION[];
 }
 
 export const RoleName = Role.name;

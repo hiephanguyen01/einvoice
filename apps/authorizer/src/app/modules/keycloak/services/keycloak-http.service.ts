@@ -80,4 +80,22 @@ export class KeycloakHttpService {
       throw error;
     }
   }
+
+  async exchangeUserToken(params: { username: string; password: string }): Promise<ExchangeClientTokenResponse> {
+    const body = new URLSearchParams();
+    body.append('grant_type', 'password');
+    body.append('client_id', this.clientId);
+    body.append('client_secret', this.clientSecret);
+    body.append('username', params.username);
+    body.append('password', params.password);
+    body.append('scope', 'openid');
+    console.log(body)
+
+    const { data } = await this.axiosInstance.post(`/realms/${this.realm}/protocol/openid-connect/token`, body, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    return data;
+  }
 }

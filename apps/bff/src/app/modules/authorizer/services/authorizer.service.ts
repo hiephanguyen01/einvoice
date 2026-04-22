@@ -16,10 +16,6 @@ export class AuthorizerService {
       rateLimit: true,
     });
   }
-  async login(params: any) {
-    return {};
-  }
-
   async verifyUserToken(token: string) {
     const decoded = jwt.decode(token, { complete: true });
     if (!decoded || !decoded.header || !decoded.header.kid) {

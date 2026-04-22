@@ -1,6 +1,7 @@
 import { HttpMessage } from '@common/constants';
 import { CallHandler, ExecutionContext, HttpStatus, Injectable, Logger, NestInterceptor } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
+import { inspect } from 'node:util';
 import { catchError, Observable, tap } from 'rxjs';
 @Injectable()
 export class TcpLoggingInterceptor implements NestInterceptor {
@@ -12,9 +13,10 @@ export class TcpLoggingInterceptor implements NestInterceptor {
     const args = context.getArgs();
     const param = args[0];
     const processId = param.processId;
+    const serializedParam = inspect(param, { depth: 4, breakLength: 120 });
 
     Logger.log(
-      `TCP >> Start process '${processId}' >> method: '${handlerName}' at '${now}' >> param: ${JSON.stringify(param)}`,
+      `TCP >> Start process '${processId}' >> method: '${handlerName}' at '${now}' >> param: ${serializedParam}`,
     );
 
     return next.handle().pipe(
@@ -27,7 +29,7 @@ export class TcpLoggingInterceptor implements NestInterceptor {
           error.stack,
         );
         throw new RpcException({
-          code: error?.status || error?.code || HttpStatus.INTERNAL_SERVER_ERROR,
+          code: error?.status || error?.code || error?.response?.code || HttpStatus.INTERNAL_SERVER_ERROR,
           message: error?.response?.message || error?.message || HttpMessage.INTERNAL_SERVER_ERROR,
         });
       }),

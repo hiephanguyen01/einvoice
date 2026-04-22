@@ -1,6 +1,9 @@
 import { PERMISSION } from '@common/constants';
 import { User } from '@common/schemas';
 import { JwtPayload } from 'jsonwebtoken';
+import { LoginResponseDto } from '../../gateway/authorizer/authorizer-request.dto';
+
+export type LoginTcpResponse = LoginResponseDto;
 
 export class AuthorizerMetadata {
   userId: string | undefined;

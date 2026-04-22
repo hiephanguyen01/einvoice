@@ -1,6 +1,7 @@
 import { TCP_SERVICES } from '@common/configraruration';
 import { ErrorCode, TCP_REQUEST_MESSAGE } from '@common/constants';
 import { CreateKeycloakUserTcpReq, CreateUserRequestDto, ResponseType, TcpClient } from '@common/interfaces';
+import { User } from '@common/schemas';
 import { ConflictException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -51,5 +52,8 @@ export class UserService {
           }),
         ),
     );
+  }
+  getUserByUserId(userId: string): Promise<User | null> {
+    return this.userRepository.getByUserId(userId);
   }
 }

@@ -1,6 +1,6 @@
 import { TCP_SERVICES } from '@common/configraruration';
 import { TCP_REQUEST_MESSAGE } from '@common/constants';
-import { ProcessId } from '@common/decorators';
+import { Authorization, ProcessId } from '@common/decorators';
 import { CreateProductRequestDto, ProductResponseDto, ResponseDto, TcpClient } from '@common/interfaces';
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -25,6 +25,7 @@ export class ProductController {
   @Get()
   @ApiResponse({ type: ResponseDto<ProductResponseDto[]> })
   @ApiOperation({ summary: 'Get all products' })
+  @Authorization({ secured: true })
   getAll(@ProcessId() processId: string) {
     return this.productClient
       .send<ProductResponseDto[], void>(TCP_REQUEST_MESSAGE.PRODUCT.GET_ALL, {
