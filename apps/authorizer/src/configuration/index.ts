@@ -1,3 +1,4 @@
+import { GrpcConfiguration } from '@common/configraruration';
 import { AppConfiguration, BaseConfiguration, KeycloakConfiguration, TcpConfiguration } from '@common/configraruration';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
@@ -13,6 +14,10 @@ class Configuration extends BaseConfiguration {
   @ValidateNested()
   @Type(() => KeycloakConfiguration)
   KEYCLOAK_CONFIG = new KeycloakConfiguration();
+
+  @ValidateNested()
+  @Type(() => GrpcConfiguration)
+  GRPC_SERV = new GrpcConfiguration();
 }
 
 export const CONFIGURATION = new Configuration();

@@ -7,3 +7,5 @@ export * from './lib/tcpLogging.config';
 export * from './lib/type-orm.config';
 export * from './lib/keycloak.config';
 export * from './lib/redis.config';
+export * from './lib/throttler.config';
+export * from './lib/grpc.config';

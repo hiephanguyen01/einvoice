@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@grpc/grpc-js": "^1.14.3",
+    "@grpc/proto-loader": "^0.8.0",
     "@keyv/redis": "^5.1.6",
     "@nestjs/cache-manager": "^3.1.0",
     "@nestjs/common": "^11.1.17",
@@ -9,6 +11,7 @@
     "@nestjs/mongoose": "^11.0.4",
     "@nestjs/platform-express": "^11.0.0",
     "@nestjs/swagger": "^11.2.6",
+    "@nestjs/throttler": "^6.5.0",
     "@nestjs/typeorm": "^11.0.1",
     "@types/express": "^5.0.6",
     "axios": "^1.14.0",
@@ -19,6 +22,7 @@
     "jwks-rsa": "^4.0.1",
     "mongodb": "^7.1.1",
     "mongoose": "^9.3.3",
+    "nestjs-throttler-storage-redis": "^0.5.1",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",

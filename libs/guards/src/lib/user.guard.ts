@@ -2,8 +2,11 @@ import { TCP_SERVICES } from '@common/configraruration';
 import { MetaDataKey, TCP_REQUEST_MESSAGE } from '@common/constants';
 import { AuthorizeResponse, TcpClient } from '@common/interfaces';
 import { getAccessToken, setUserData } from '@common/utils';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { CanActivate, ExecutionContext, Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { Cache } from 'cache-manager';
+import * as crypto from 'crypto';
 import { Request } from 'express';
 import { firstValueFrom, map } from 'rxjs';
 
@@ -15,6 +18,8 @@ export class UserGuard implements CanActivate {
     private readonly reflector: Reflector,
     @Inject(TCP_SERVICES.AUTHORIZE_SERVICE)
     private readonly authorizerClient: TcpClient,
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -41,16 +46,26 @@ export class UserGuard implements CanActivate {
         throw new UnauthorizedException('Missing token');
       }
 
+      const cacheKey = this.generateTokenCacheKey(token);
       const processId = req[MetaDataKey.PROCESS_ID] || '';
 
+      const cachedResponse = await this.cacheManager.get<AuthorizeResponse>(cacheKey);
+      if (cachedResponse) {
+        setUserData(req, cachedResponse);
+        return true;
+      }
+
       const response = await this.verifyUserToken(token, processId);
-      console.log("🚀 ~ UserGuard ~ verifyToken ~ response:", response)
 
       if (!response?.valid) {
         throw new UnauthorizedException('Token is invalid');
       }
 
-      setUserData(req,response);
+      this.logger.debug(`Token verified successfully for cacheKey: ${cacheKey}`);
+
+      setUserData(req, response);
+      await this.cacheManager.set(cacheKey, response, 30 * 60 * 1000); // Cache for 30 minutes
+
       return true;
     } catch (error) {
       this.logger.error('Verify token failed', error);
@@ -73,5 +88,10 @@ export class UserGuard implements CanActivate {
         })
         .pipe(map((response) => response.data)),
     );
+  }
+
+  generateTokenCacheKey(token: string): string {
+    const hash = crypto.createHash('sha256').update(token).digest('hex');
+    return `user_token:${hash}`;
   }
 }

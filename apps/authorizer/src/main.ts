@@ -8,7 +8,6 @@ async function bootstrap() {
   const tcpUserAccessOptions = AppModule.CONFIGURATION.TCP_SERV.TCP_AUTHORIZE_SERVICE.options || {};
   const tcpPort = Number(tcpUserAccessOptions.port) || 3404;
   const tcpHost = tcpUserAccessOptions.host || 'localhost';
-  console.log('🚀 ~ bootstrap ~ AppModule:', tcpPort);
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
@@ -16,6 +15,16 @@ async function bootstrap() {
       host: tcpHost,
     },
   });
+
+  app.connectMicroservice({
+    transport: Transport.GRPC,
+    options: {
+      package: AppModule.CONFIGURATION.GRPC_SERV.GRPC_AUTHORIZER_SERVICE.name,
+      protoPath: AppModule.CONFIGURATION.GRPC_SERV.GRPC_AUTHORIZER_SERVICE.options.protoPath,
+      url: AppModule.CONFIGURATION.GRPC_SERV.GRPC_AUTHORIZER_SERVICE.options.url,
+    },
+  });
+
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.AUTHORIZE_PORT || 3003;
