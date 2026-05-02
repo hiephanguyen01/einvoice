@@ -14,8 +14,8 @@ export class PermissionGuard implements CanActivate {
       return true; // No permissions required, allow access
     }
     const request = context.switchToHttp().getRequest();
-    const userPermissions = request[MetaDataKey.USER_DATA] as AuthorizeResponse;
-    const userPermissionsList = userPermissions.metadata.permissions || [];
+    const userPermissions = request[MetaDataKey.USER_DATA] as AuthorizeResponse | undefined;
+    const userPermissionsList = userPermissions?.metadata?.permissions || [];
     const isValid = requiredPermissions.every((permission) => userPermissionsList.includes(permission));
     if (!isValid) {
       throw new UnauthorizedException('Permission denied');

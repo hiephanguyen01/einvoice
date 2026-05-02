@@ -18,7 +18,7 @@ import { map } from 'rxjs/internal/operators/map';
 export class InvoiceController {
   constructor(@Inject(TCP_SERVICES.INVOICE_SERVICE) private readonly invoiceClient: TcpClient) {}
 
-  @Post()
+  @Post() 
   @ApiResponse({ type: ResponseDto<InvoiceResponseDto> })
   @ApiOperation({ summary: 'Create a new invoice' })
   @Authorization({ secured: true })

@@ -1,4 +1,4 @@
-import { AppConfiguration, BaseConfiguration, TcpConfiguration, RedisConfiguration } from '@common/configraruration';
+import { AppConfiguration, BaseConfiguration, TcpConfiguration, RedisConfiguration, GrpcConfiguration } from '@common/configraruration';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 class Configuration extends BaseConfiguration {
@@ -13,6 +13,10 @@ class Configuration extends BaseConfiguration {
   @ValidateNested()
   @Type(() => RedisConfiguration)
   REDIS_CONFIG = new RedisConfiguration();
+
+  @ValidateNested()
+  @Type(() => GrpcConfiguration)
+  GRPC_SERV =new GrpcConfiguration();
 }
 
 export const CONFIGURATION = new Configuration();

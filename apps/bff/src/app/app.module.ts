@@ -1,4 +1,11 @@
-import { RedisProvider, TCP_SERVICES, TcpProvider, ThrottlerProvider } from '@common/configraruration';
+import {
+  GRPC_SERVICES,
+  GrpcProvider,
+  RedisProvider,
+  TCP_SERVICES,
+  TcpProvider,
+  ThrottlerProvider,
+} from '@common/configraruration';
 import { PermissionGuard, UserGuard } from '@common/guards';
 import { ExceptionInterceptor } from '@common/interceptors';
 import { LoggerMiddleware } from '@common/middlewares';
@@ -20,7 +27,10 @@ import { UserModule } from './modules/user/user.module';
     ProductModule,
     UserModule,
     AuthorizerModule,
-    ClientsModule.registerAsync([TcpProvider(TCP_SERVICES.AUTHORIZE_SERVICE)]),
+    ClientsModule.registerAsync([
+      TcpProvider(TCP_SERVICES.AUTHORIZE_SERVICE),
+      GrpcProvider(GRPC_SERVICES.AUTHORIZER_SERVICE),
+    ]),
     RedisProvider,
     ThrottlerProvider,
   ],

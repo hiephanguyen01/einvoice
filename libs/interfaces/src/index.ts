@@ -12,5 +12,7 @@ export * from './lib/tcp/invoice';
 export * from './lib/tcp/product';
 export * from './lib/tcp/user';
 export * from './lib/tcp/authorizer';
+export * from './lib/grpc/authorizer';
+export * from './lib/grpc/common/response.interface';
 
 
