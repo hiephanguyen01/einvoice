@@ -3,6 +3,7 @@ import { UserDestination } from '@common/schemas';
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserGrpcController } from './controllers/user-grpc.controller';
 import { UserController } from './controllers/user.controller';
 import { UserRepository } from './repositories/user.repository';
 import { UserService } from './service/user.service';
@@ -12,7 +13,7 @@ import { UserService } from './service/user.service';
     MongooseModule.forFeature([UserDestination]),
     ClientsModule.registerAsync([TcpProvider(TCP_SERVICES.AUTHORIZE_SERVICE)]),
   ],
-  controllers: [UserController],
+  controllers: [UserController, UserGrpcController],
   providers: [UserService, UserRepository],
   exports: [],
 })

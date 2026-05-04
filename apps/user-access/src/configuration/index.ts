@@ -1,4 +1,10 @@
-import { AppConfiguration, BaseConfiguration, MongoConfiguration, TcpConfiguration } from '@common/configraruration';
+import {
+  AppConfiguration,
+  BaseConfiguration,
+  GrpcConfiguration,
+  MongoConfiguration,
+  TcpConfiguration,
+} from '@common/configraruration';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 class Configuration extends BaseConfiguration {
@@ -13,6 +19,10 @@ class Configuration extends BaseConfiguration {
   @ValidateNested()
   @Type(() => MongoConfiguration)
   MONGO_CONFIG = new MongoConfiguration();
+
+  @ValidateNested()
+  @Type(() => GrpcConfiguration)
+  GRPC_SERV = new GrpcConfiguration();
 }
 
 export const CONFIGURATION = new Configuration();

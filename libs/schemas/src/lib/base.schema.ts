@@ -1,4 +1,4 @@
-import { Type } from '@nestjs/common';
+  import { Type } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId } from 'mongoose';
 

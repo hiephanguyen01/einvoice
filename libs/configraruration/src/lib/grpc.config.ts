@@ -2,7 +2,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsProviderAsyncOptions, GrpcOptions, Transport } from '@nestjs/microservices';
 import { IsNotEmpty, IsObject } from 'class-validator';
 import { join } from 'path';
-
+  
 export enum GRPC_SERVICES {
   AUTHORIZER_SERVICE = 'GRPC_AUTHORIZER_SERVICE',
   USER_ACCESS_SERVICE = 'GRPC_USER_ACCESS_SERVICE',
@@ -13,9 +13,9 @@ export class GrpcConfiguration {
   @IsNotEmpty()
   GRPC_AUTHORIZER_SERVICE: GrpcOptions & { name: string };
 
-  // @IsObject()
-  // @IsNotEmpty()
-  // GRPC_USER_ACCESS_SERVICE: GrpcOptions & { name: string };
+  @IsObject()
+  @IsNotEmpty()
+  GRPC_USER_ACCESS_SERVICE: GrpcOptions & { name: string };
 
   constructor() {
     this.GRPC_AUTHORIZER_SERVICE = GrpcConfiguration.setValue({
@@ -24,12 +24,12 @@ export class GrpcConfiguration {
       host: process.env['GRPC_AUTHORIZER_SERVICE_HOST'] || '127.0.0.1',
       port: Number(process.env['GRPC_AUTHORIZER_SERVICE_PORT'] || 50051),
     });
-    // this.GRPC_USER_ACCESS_SERVICE = GrpcConfiguration.setValue({
-    //   key: GRPC_SERVICES.USER_ACCESS_SERVICE,
-    //   protoPath: 'proto/user_access.proto',
-    //   host: process.env['GRPC_USER_ACCESS_SERVICE_HOST'] || '127.0.0.1',
-    //   port: Number(process.env['GRPC_USER_ACCESS_SERVICE_PORT'] || 50051),
-    // });
+    this.GRPC_USER_ACCESS_SERVICE = GrpcConfiguration.setValue({
+      key: GRPC_SERVICES.USER_ACCESS_SERVICE,
+      protoPath: './proto/user-access.proto',
+      host: process.env['GRPC_USER_ACCESS_SERVICE_HOST'] || '127.0.0.1',
+      port: Number(process.env['GRPC_USER_ACCESS_SERVICE_PORT'] || 50051),
+    });
   }
   private static setValue({
     key,
